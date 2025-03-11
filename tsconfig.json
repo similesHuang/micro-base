@@ -3,7 +3,7 @@
         "target": "ESNext",
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
-        "skipLibCheck": false,
+        "skipLibCheck": true,// 跳过库的类型检查
         "esModuleInterop": false,
         "allowSyntheticDefaultImports": true,
         "strict": true,
@@ -19,5 +19,5 @@
             "@/*":["src/*"],//将@映射到src目录
         }
     },
-    "include": ["./src"]
+    "include": ["./src"],
 }
