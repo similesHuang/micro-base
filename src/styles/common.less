@@ -1,0 +1,114 @@
+:root{
+    --bg-color: #fff; /* 白天模式背景色 */
+    --text-color: #333; /* 白天模式文字颜色 */
+    --hover-color:rgb(242 244 248); /* 白天模式悬浮颜色 */
+    --click-color:rgb(242 244 248);/* 白天模式点击颜色 */
+  }
+
+[data-theme="dark"] {
+	--bg-color: #333; /* 黑夜模式背景色 */
+	--text-color: #fff; /* 黑夜模式文字颜色 */
+    --hover-color:rgb(81 80 80); /* 黑夜模式悬浮颜色 */
+    --click-color:rgb(81 80 80);/* 黑夜模式点击颜色 */
+}
+ 
+.container{
+    &-header{
+        padding: 0;
+        height: 50px;
+        white-space: nowrap;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        border-bottom: 1px solid rgb(233 236 241);
+        line-height: 50px;
+
+        &-btn{
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            cursor: pointer;
+
+            &:hover{
+                 color: var(--hover-color);
+            }
+        }
+
+        &-title{
+            display: inline-block;
+            font-size: 16px;
+            transform: translateY(-1px)
+        }
+
+        &-setting{
+            border-left: 1px solid rgb(233 236 241);
+            
+            &-title{
+                display: flex;
+                justify-content: space-between;
+                color: var(--text-color);
+                background-color: var(--bg-color);
+                flex-direction: row;
+               
+            }
+        }
+    }
+
+   &-main{
+    display: flex;
+    height: calc(100vh - 50px);
+    flex-direction: row;
+
+    &-sider{
+        height: 100%;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+
+        &-menu{
+            height: 100%;
+         }
+     }
+
+    
+}
+  
+}
+
+
+[data-theme='dark'] .container-main,.container-header-setting-title{
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+[data-theme='dark'] .container-header-btn{
+   &:hover{
+    color: var(--hover-color);
+   }
+}
+
+// 菜单
+.menu{
+    color: var(--text-color);
+    background-color: var(--bg-color);
+
+    &-card{
+        padding: 8px;
+        border-bottom: 1px solid  rgb(233 236 241);
+        cursor: pointer;
+        font-size: 18px;
+
+        &-selected{
+            background-color: var(--click-color);
+        }
+
+        &:hover{
+             background-color:  var(--hover-color);
+        }
+
+        &-icon{
+             padding-right: 14px;
+        }
+    }
+}
+
+[data-theme='dark'] .menu-card:hover{
+    background-color: var(--hover-color);
+}

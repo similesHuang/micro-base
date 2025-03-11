@@ -1,0 +1,28 @@
+.theme-container{
+     display: flex;
+     flex-direction: column;
+
+     &-list{
+        display: flex;
+        justify-content: space-around;
+
+        &-card{
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            flex-direction: column;
+            cursor: pointer;
+
+            &-unselected{
+                border: 2px solid #ffff;
+                border-radius: 4px;
+            }
+
+            &-selectd{
+                border: 2px solid #0052d9;
+                border-radius: 4px;
+            }
+        }
+        
+     }
+}
