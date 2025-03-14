@@ -30,7 +30,7 @@ const MicroMenu: React.FC<MicroMenuProps> = ({ onClose }) => {
       }
       return (
         <div key={menu.key}>
-          <b>{menu.key !== 'app' ? menu.key : null}</b>
+          <b>{menu.key !== 'app' ? menu.title : null}</b>
           {renderMenus(menu.children)}
         </div>
       );
