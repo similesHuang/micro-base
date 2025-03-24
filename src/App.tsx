@@ -1,11 +1,12 @@
 import '@/styles/common.less';
-import { Button, Col, Drawer, Popover, Row } from 'antd';
+import { Button, Col, Drawer, Input, Popover, Row } from 'antd';
 import light from '../public/assets/light.svg';
 import dark from '../public/assets/dark.svg';
 import {
   CloseOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  SearchOutlined,
   SettingOutlined,
   ToolOutlined
 } from '@ant-design/icons';
@@ -29,6 +30,7 @@ const App = () => {
   const [openSetting, setOpenSetting] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const { theme } = useStore();
+  const [inputValue, setInputValue] = useState<string>('');
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -73,7 +75,21 @@ const App = () => {
           >
             <MicroMenu onClose={toggleCollapsed}></MicroMenu>
           </Drawer>
-          <Col span={20}></Col>
+          <Col span={20}>
+            <div className='container-header-search'>
+              &nbsp; &nbsp;
+              <SearchOutlined style={{ fontSize: 22 }} />
+              <Input
+                value={inputValue}
+                placeholder='输入关键字搜索'
+                className='container-header-search-input'
+                onChange={e => {
+                  setInputValue(e.target.value);
+                }}
+                bordered={false}
+              />
+            </div>
+          </Col>
           <Col span={2} className='container-header-setting'>
             <Popover content='自定义设置'>
               <SettingOutlined
@@ -105,7 +121,10 @@ const App = () => {
       <Row className='container-main'>
         <Col span={24}>
           <Content>
-            <Outlet></Outlet>
+            <Outlet />
+
+            {/* 子应用渲染区域 */}
+            <div id='sub-app'></div>
           </Content>
         </Col>
       </Row>

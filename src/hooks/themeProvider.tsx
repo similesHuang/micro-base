@@ -1,5 +1,6 @@
 import React from 'react';
 import GlobalProvider from './globalProvider';
+import { setGlobalState } from './qiankunGlobal';
 
 export type StateType = {
   theme: string;
@@ -19,7 +20,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     switch (action.type) {
       case 'light': {
         htmlEl?.setAttribute('data-theme', 'light');
-
+        setGlobalState({ theme: 'light' });
         return {
           ...state,
           theme: 'light'
@@ -27,7 +28,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
       }
       case 'dark': {
         htmlEl?.setAttribute('data-theme', 'dark');
-
+        setGlobalState({ theme: 'dark' });
         return {
           ...state,
           theme: 'dark'

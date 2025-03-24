@@ -76,6 +76,7 @@
   },
   "dependencies": {
     "antd": "^4.24.12",
+    "qiankun": "^2.10.16",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.4.3"

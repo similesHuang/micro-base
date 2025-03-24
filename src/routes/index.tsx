@@ -2,36 +2,34 @@ import Home from '@/pages/home';
 import React from 'react';
 import { HomeOutlined, ReadOutlined, RobotOutlined } from '@ant-design/icons';
 import App from '@/App';
-import { createBrowserRouter } from 'react-router-dom';
-export interface iRouteProps {
-  path: string;
-  element?: React.ReactNode;
+import { createBrowserRouter, RouteObject } from 'react-router-dom';
+export type R = RouteObject & {
   key: string;
   title?: string;
-  children?: iRouteProps[];
   icon?: React.ReactNode;
-}
-export const routes: iRouteProps[] = [
+  children?: R[];
+};
+export const routes: R[] = [
   {
     path: '/',
     element: <App />,
     key: 'app',
     children: [
       {
-        path: '/',
+        index: true,
         element: <Home />,
         key: 'home',
         icon: <HomeOutlined />,
         title: '概览'
       },
       {
-        path: '/todo',
+        path: '/sub-todo',
         key: 'todo',
         title: '待办任务',
         icon: <RobotOutlined />
       },
       {
-        path: '/note',
+        path: '/sub-note',
         key: 'note',
         title: '笔记',
         icon: <ReadOutlined />

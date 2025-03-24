@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { routes } from '@/routes';
-import { iRouteProps } from '@/routes';
+import { R } from '@/routes';
 import '../styles/common.less';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,8 @@ interface MicroMenuProps {
 const MicroMenu: React.FC<MicroMenuProps> = ({ onClose }) => {
   const [selectdMenu, setSelectedMenu] = useState('home');
   const navigate = useNavigate();
-  const renderMenus = (menus: iRouteProps[]): React.ReactNode => {
+
+  const renderMenus = (menus: R[]): React.ReactNode => {
     return menus.map(menu => {
       if (!menu.children) {
         return (
@@ -19,7 +20,7 @@ const MicroMenu: React.FC<MicroMenuProps> = ({ onClose }) => {
             className={`menu-card ${menu.key === selectdMenu ? 'menu-card-selected' : ''}`}
             onClick={() => {
               setSelectedMenu(menu.key);
-              navigate(menu.path);
+              navigate(menu.path ? menu.path : '/');
               onClose();
             }}
           >
@@ -36,6 +37,7 @@ const MicroMenu: React.FC<MicroMenuProps> = ({ onClose }) => {
       );
     });
   };
+
   return <div className='menu'>{renderMenus(routes)}</div>;
 };
 export default MicroMenu;
