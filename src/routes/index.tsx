@@ -29,7 +29,7 @@ export const routes: R[] = [
         icon: <RobotOutlined />
       },
       {
-        path: '/sub-note',
+        path: '/sub-note/*',
         key: 'note',
         title: '笔记',
         icon: <ReadOutlined />

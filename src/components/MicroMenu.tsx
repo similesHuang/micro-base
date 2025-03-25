@@ -19,7 +19,9 @@ const MicroMenu: React.FC<MicroMenuProps> = ({ onClose }) => {
             className={`menu-card ${menu.key === selectdMenu ? 'menu-card-selected' : ''}`}
             onClick={() => {
               setSelectedMenu(menu.key);
-              navigate(menu.path ? menu.path : '/');
+              let path = menu.path || '/';
+              path = path.charAt(path.length - 1) === '*' ? path.slice(0, path.length - 2) : path;
+              navigate(path);
               onClose();
             }}
           >
