@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { routes } from '@/routes';
 import { R } from '@/routes';
-import '../styles/common.less';
 import { useNavigate } from 'react-router-dom';
 
 interface MicroMenuProps {

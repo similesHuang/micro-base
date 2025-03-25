@@ -5,7 +5,7 @@ import '@/index.less';
 import ThemeProvider from './hooks/themeProvider';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes';
-import { registerMicroApps, start } from 'qiankun';
+import { registerMicroApps, RegistrableApp, start } from 'qiankun';
 
 const root = document.getElementById('root');
 createRoot(root as HTMLElement).render(
@@ -14,19 +14,14 @@ createRoot(root as HTMLElement).render(
   </ThemeProvider>
 );
 
-export interface appProps {
-  name: string;
-  entry: string;
-  container: string;
-  activeRule: string;
-}
 // 微应用列表
-const apps: appProps[] = [
+const apps: Array<RegistrableApp<object>> = [
   {
     name: 'sub-note',
     entry: '//localhost:3001',
     container: '#sub-app',
-    activeRule: '/sub-note'
+    activeRule: '/sub-note',
+    props: {}
   }
   // {
   //   name: 'sub-todo',

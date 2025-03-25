@@ -1,7 +1,10 @@
 import '@/styles/common.less';
+import '@/styles/dark.less';
 import { Button, Col, Drawer, Input, Popover, Row } from 'antd';
 import light from '../public/assets/light.svg';
 import dark from '../public/assets/dark.svg';
+import { debounce } from 'lodash';
+
 import {
   CloseOutlined,
   MenuFoldOutlined,
@@ -10,12 +13,13 @@ import {
   SettingOutlined,
   ToolOutlined
 } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Content, Header } from 'antd/lib/layout/layout';
 import ThemeMode from './components/ThemeMode';
 import { useStore } from './hooks/globalProvider';
 import MicroMenu from './components/MicroMenu';
+import { setGlobalState } from './hooks/qiankunGlobal';
 
 const drawerLightStyle = {
   backgroundColor: '#fff',
@@ -30,7 +34,7 @@ const App = () => {
   const [openSetting, setOpenSetting] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const { theme } = useStore();
-  const [inputValue, setInputValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -43,12 +47,18 @@ const App = () => {
       </div>
     );
   };
+  const debouncedSetGlobalState = useCallback(
+    debounce((value: string) => {
+      setGlobalState({ searchValue: value });
+    }, 300),
+    []
+  );
 
   return (
     <div className='container'>
       <Header className='container-header'>
         <Row>
-          <Col span={2}>
+          <Col span={11}>
             &nbsp; &nbsp; &nbsp;
             <Popover content='导航'>
               <span onClick={toggleCollapsed} className='container-header-btn'>
@@ -75,22 +85,24 @@ const App = () => {
           >
             <MicroMenu onClose={toggleCollapsed}></MicroMenu>
           </Drawer>
-          <Col span={20}>
-            <div className='container-header-search'>
+          <Col span={9} className='container-header-middle'>
+            <div className='container-header-middle-search'>
               &nbsp; &nbsp;
               <SearchOutlined style={{ fontSize: 22 }} />
               <Input
-                value={inputValue}
+                value={searchValue}
                 placeholder='输入关键字搜索'
-                className='container-header-search-input'
+                className='container-header-middle-search-input'
                 onChange={e => {
-                  setInputValue(e.target.value);
+                  const value = e.target.value;
+                  setSearchValue(value);
+                  debouncedSetGlobalState(value);
                 }}
                 bordered={false}
               />
             </div>
           </Col>
-          <Col span={2} className='container-header-setting'>
+          <Col span={4} className='container-header-setting'>
             <Popover content='自定义设置'>
               <SettingOutlined
                 style={{ fontSize: '18px', padding: '0 0 0 10px' }}

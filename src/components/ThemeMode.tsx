@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/theme.less';
+
 import { useDispatch, useStore } from '@/hooks/globalProvider';
 import { CheckCircleTwoTone } from '@ant-design/icons';
 
