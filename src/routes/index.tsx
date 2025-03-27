@@ -2,7 +2,7 @@ import Home from '@/pages/home';
 import React from 'react';
 import { HomeOutlined, ReadOutlined, RobotOutlined } from '@ant-design/icons';
 import App from '@/App';
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
 export type R = RouteObject & {
   key: string;
   title?: string;
@@ -17,6 +17,11 @@ export const routes: R[] = [
     children: [
       {
         index: true,
+        key: 'index',
+        element: <Navigate to='/home' replace />
+      },
+      {
+        path: '/home',
         element: <Home />,
         key: 'home',
         icon: <HomeOutlined />,
@@ -31,7 +36,7 @@ export const routes: R[] = [
       {
         path: '/sub-note/*',
         key: 'note',
-        title: '笔记',
+        title: '云笔记',
         icon: <ReadOutlined />
       }
     ]

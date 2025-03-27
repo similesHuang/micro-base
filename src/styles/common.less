@@ -13,7 +13,7 @@
         white-space: nowrap;
         color: var(--text-color);
         background-color: var(--bg-color);
-        border-bottom: 1px solid rgb(233 236 241);
+        border-bottom: 1px solid var(--border-color);
         line-height: 50px;
 
         &-btn{
@@ -22,7 +22,7 @@
             cursor: pointer;
 
             &:hover{
-                 color: rgb(207 195 195);
+                 color: var(--hover-color);
             }
         }
 
@@ -64,8 +64,6 @@
         }
       
         &-setting{
-            border-left: 1px solid rgb(233 236 241);
-            
             &-title{
                 display: flex;
                 justify-content: space-between;
@@ -81,6 +79,8 @@
     display: flex;
     height: calc(100vh - 50px);
     flex-direction: row;
+    color: var(--text-color);
+    background-color: var(--bg-color);
 
     &-sider{
         height: 100%;
@@ -106,7 +106,7 @@
 
     &-card{
         padding: 8px;
-        border-bottom: 1px solid  rgb(233 236 241);
+        border-bottom: 1px solid  var(--border-color);
         cursor: pointer;
         font-size: 18px;
 
