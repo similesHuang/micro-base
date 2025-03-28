@@ -2,37 +2,45 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import '@/index.less';
 
-import ThemeProvider from './hooks/themeProvider';
+import Provider from './hooks/Provider';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes';
 import { registerMicroApps, RegistrableApp, start } from 'qiankun';
+import actions, { getGlobalState } from './hooks/qiankunGlobal';
 
 const root = document.getElementById('root');
 createRoot(root as HTMLElement).render(
-  <ThemeProvider>
+  <Provider>
     <RouterProvider router={router}></RouterProvider>
-  </ThemeProvider>
+  </Provider>
 );
 
 // 微应用列表
-const apps: Array<RegistrableApp<object>> = [
+const microApps = [
   {
     name: 'sub-note',
     entry: '//localhost:3001',
     container: '#sub-app',
-    activeRule: '/sub-note',
-    props: {}
+    activeRule: '/sub-note'
   }
-  // {
-  //   name: 'sub-todo',
-  //   entry: '//localhost:3002',
-  //   container: '#sub-app',
-  //   activeRule: '/sub-note'
-  // }
 ];
+
+interface AppsExtraProps {
+  routerBase: string;
+  getGlobalState: getGlobalState;
+}
+const apps: Array<RegistrableApp<AppsExtraProps>> = microApps.map(item => {
+  return {
+    ...item,
+    props: {
+      routerBase: item.activeRule, //下发基础路由
+      getGlobalState: actions.getGlobalState
+    }
+  };
+});
 
 // 注册子应用
 registerMicroApps(apps);
 
 // 启动qiankun
-start();
+start({ sandbox: { strictStyleIsolation: true } });

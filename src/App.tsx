@@ -3,7 +3,6 @@ import '@/styles/dark.less';
 import { Button, Col, Drawer, Input, Popover, Row } from 'antd';
 import light from '../public/assets/light.svg';
 import dark from '../public/assets/dark.svg';
-import { debounce } from 'lodash';
 
 import {
   CloseOutlined,
@@ -13,13 +12,12 @@ import {
   SettingOutlined,
   ToolOutlined
 } from '@ant-design/icons';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Content, Header } from 'antd/lib/layout/layout';
 import ThemeMode from './components/ThemeMode';
-import { useStore } from './hooks/globalProvider';
+import { useDispatch, useStore } from './hooks/globalProvider';
 import MicroMenu from './components/MicroMenu';
-import { setGlobalState } from './hooks/qiankunGlobal';
 
 const drawerLightStyle = {
   backgroundColor: '#fff',
@@ -33,8 +31,8 @@ const drawerDarkStyle = {
 const App = () => {
   const [openSetting, setOpenSetting] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
-  const { theme } = useStore();
-  const [searchValue, setSearchValue] = useState<string>('');
+  const { theme, searchValue } = useStore();
+  const dispatch = useDispatch();
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -47,12 +45,6 @@ const App = () => {
       </div>
     );
   };
-  const debouncedSetGlobalState = useCallback(
-    debounce((value: string) => {
-      setGlobalState({ searchValue: value });
-    }, 300),
-    []
-  );
 
   return (
     <div className='container'>
@@ -95,8 +87,7 @@ const App = () => {
                 className='container-header-middle-search-input'
                 onChange={e => {
                   const value = e.target.value;
-                  setSearchValue(value);
-                  debouncedSetGlobalState(value);
+                  dispatch({ type: 'SET_SEARCH_VALUE', payload: value });
                 }}
                 bordered={false}
               />

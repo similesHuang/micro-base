@@ -21,7 +21,10 @@ const ThemeMode: React.FC<ThemeModeProps> = ({ modes }) => {
           <div
             key={mode.key}
             className='theme-container-list-card'
-            onClick={() => dispatch && dispatch({ type: mode.key })}
+            onClick={() =>
+              dispatch &&
+              dispatch({ type: 'SET_THEME', payload: theme === 'light' ? 'dark' : 'light' })
+            }
           >
             <div
               style={{ padding: '5px', position: 'relative' }}

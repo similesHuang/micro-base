@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import actions from './qiankunGlobal';
 
 // 定义 Dispatch 类型
 type Dispatch<Action> = (action: Action) => void;
@@ -19,6 +20,18 @@ const GlobalProvider = <State extends object, Action>({
   children
 }: GlobalProviderProps<State, Action>) => {
   const [store, dispatch] = useReducer(reducer, initState);
+
+  // 监听子应用状态变化
+  useEffect(() => {
+    // 暂时先不处理
+    actions.onGlobalStateChange(state => {
+      console.log('子应用传过来的', state);
+    });
+
+    return () => {
+      actions.offGlobalStateChange();
+    };
+  }, []);
 
   return (
     <DispatchContext.Provider value={dispatch}>
