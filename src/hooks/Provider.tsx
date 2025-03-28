@@ -17,6 +17,10 @@ type ActionType =
   | {
       type: 'SET_SEARCH_VALUE';
       payload: string;
+    }
+  | {
+      type: 'SYNC_STATE';
+      payload: object;
     };
 
 const Provider = ({ children }: ProviderProps) => {
@@ -39,7 +43,13 @@ const Provider = ({ children }: ProviderProps) => {
           searchValue: action.payload
         };
       }
-
+      case 'SYNC_STATE': {
+        //同步主应用状态到子应用
+        return {
+          ...state,
+          ...action.payload
+        };
+      }
       default:
         return state;
     }

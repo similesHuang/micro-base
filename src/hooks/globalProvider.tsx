@@ -1,20 +1,25 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import actions from './qiankunGlobal';
 
+type BaseAction = {
+  type: string;
+  payload?: unknown;
+};
 // 定义 Dispatch 类型
-type Dispatch<Action> = (action: Action) => void;
+type Dispatch<Action extends BaseAction> = (action: Action) => void;
 
-export type GlobalProviderProps<State, Action> = {
+export type GlobalProviderProps<State, Action extends BaseAction> = {
   reducer: (state: State, action: Action) => State;
   initState: State;
   children: React.ReactNode;
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const DispatchContext = createContext<Dispatch<any> | (() => void)>(() => {});
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const StoreContext = createContext<any>({});
 
-const GlobalProvider = <State extends object, Action>({
+const DispatchContext = createContext<Dispatch<BaseAction>>(() => {});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const StoreContext = createContext<Record<string, any>>({});
+
+const GlobalProvider = <State extends object, Action extends BaseAction>({
   reducer,
   initState,
   children
@@ -23,9 +28,8 @@ const GlobalProvider = <State extends object, Action>({
 
   // 监听子应用状态变化
   useEffect(() => {
-    // 暂时先不处理
     actions.onGlobalStateChange(state => {
-      console.log('子应用传过来的', state);
+      dispatch({ type: 'SYNC_STATE', payload: { ...state } } as Action);
     });
 
     return () => {
@@ -34,7 +38,7 @@ const GlobalProvider = <State extends object, Action>({
   }, []);
 
   return (
-    <DispatchContext.Provider value={dispatch}>
+    <DispatchContext.Provider value={dispatch as Dispatch<BaseAction>}>
       <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
     </DispatchContext.Provider>
   );

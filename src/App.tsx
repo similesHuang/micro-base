@@ -32,6 +32,7 @@ const App = () => {
   const [openSetting, setOpenSetting] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const { theme, searchValue } = useStore();
+
   const dispatch = useDispatch();
 
   const toggleCollapsed = () => {
