@@ -27,7 +27,7 @@ const microApps = [
 
 interface AppsExtraProps {
   routerBase: string;
-  getGlobalState: getGlobalState;
+  getGlobalState?: getGlobalState;
 }
 const apps: Array<RegistrableApp<AppsExtraProps>> = microApps.map(item => {
   return {
