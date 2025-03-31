@@ -43,4 +43,8 @@ const apps: Array<RegistrableApp<AppsExtraProps>> = microApps.map(item => {
 registerMicroApps(apps);
 
 // 启动qiankun
-start({ sandbox: { strictStyleIsolation: true } });
+start({
+  sandbox: {
+    experimentalStyleIsolation: true
+  }
+});
