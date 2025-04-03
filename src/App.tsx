@@ -71,7 +71,7 @@ const App = () => {
             open={collapsed}
             closable={false}
             onClose={toggleCollapsed}
-            style={{ transform: 'translateY(50px)' }}
+            style={{ transform: 'translateY(50px)', outlineColor: '#fff' }}
             bodyStyle={{ padding: 0 }}
             drawerStyle={theme === 'light' ? drawerLightStyle : drawerDarkStyle}
             width={200}

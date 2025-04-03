@@ -68,8 +68,19 @@ module.exports = merge(baseConfig, {
       // 只打包这些文件中用到的样式
       paths: globAll.sync([
         `${path.join(__dirname, '../src')}/**/*.tsx`,
-        path.join(__dirname, '../public/index.html')
-      ])
+        path.join(__dirname, '../public/index.html'),
+        // 添加 antd 类名白名单
+        path.join(__dirname, '../node_modules/antd/dist/antd.css')
+      ]),
+      safelist: {
+        standard: [
+          // Ant Design 动态类名保护
+          /^ant-/,
+          /^anticon-/,
+          /^hljs-/
+        ],
+        deep: [/^ant-/]
+      }
     }),
     // 开启gzip压缩
     new CompressionPlugin({
