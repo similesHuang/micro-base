@@ -24,7 +24,7 @@ module.exports = {
       {
         libraryName: 'antd',
         libraryDirectory: 'es',
-        style: 'css' // 或者 true（使用 less）
+        style: true // 或者 true（使用 less）
       }
     ]
   ].filter(Boolean) // 过滤空值

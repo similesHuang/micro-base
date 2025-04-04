@@ -34,7 +34,15 @@ module.exports = {
               }
             }
           },
-          'less-loader'
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                // modifyVars: { '@primary-color': '#1DA57A' }, // 可选的主题变量
+                javascriptEnabled: true // 让less支持js表达式
+              }
+            }
+          }
         ]
       },
       {

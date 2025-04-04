@@ -1,7 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import '@/index.less';
-import 'antd/dist/antd.css';
 import Provider from './hooks/Provider';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes';

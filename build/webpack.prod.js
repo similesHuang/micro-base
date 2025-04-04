@@ -68,9 +68,7 @@ module.exports = merge(baseConfig, {
       // 只打包这些文件中用到的样式
       paths: globAll.sync([
         `${path.join(__dirname, '../src')}/**/*.tsx`,
-        path.join(__dirname, '../public/index.html'),
-        // 添加 antd 类名白名单
-        path.join(__dirname, '../node_modules/antd/dist/antd.css')
+        path.join(__dirname, '../public/index.html')
       ]),
       safelist: {
         standard: [
